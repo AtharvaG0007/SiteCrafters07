@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   description: 'SiteCrafters is a digital creative agency for website design, website development, social media management, and video editing in India.',
   keywords: ['Website Design', 'Website Development', 'Social Media Management', 'Video Editing', 'Web Design India', 'Digital Creative Agency'],
   alternates: { canonical: '/' },
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/icon.svg'],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+  },
   openGraph: { title: 'SiteCrafters — Websites, Social Media & Video', description: 'Build your online presence with websites, social media, and video content.', type: 'website', url: siteUrl, siteName: 'SiteCrafters' },
   twitter: { card: 'summary_large_image', title: 'SiteCrafters — Websites, Social Media & Video', description: 'Build your online presence with websites, social media, and video content.' },
   generator: 'v0.app',
