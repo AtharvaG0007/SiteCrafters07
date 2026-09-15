@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
 import { ArrowUpRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Website Design & Development',
+  description: 'Responsive website design and development for businesses, landing pages, portfolios, redesigns, and modern web experiences.',
+  alternates: { canonical: '/services/web-design' },
+}
+
 export default function WebDesignPage() { return <main className="inner-page container"><a className="back-link" href="/services">← All services</a><header className="inner-hero"><p className="eyebrow">01 · Website Design & Development</p><h1>A website that<br /><em>does its job.</em></h1><p>For businesses that need to look credible, explain their offer clearly, and make it easy for the right people to get in touch.</p></header><ServiceContent sections={['Business websites, landing pages, portfolio sites, e-commerce, redesigns, UI/UX, responsive development, performance, and SEO-ready foundations.', 'We start with your audience and goals, shape the structure, design the experience, then build and test it across real screens.', 'You receive a clear, responsive website with a practical handover and a foundation you can build on.']} /></main> }
 function ServiceContent({ sections }: { sections: string[] }) { return <><section className="detail-grid">{sections.map((text, i) => <article key={text}><span>0{i + 1}</span><p>{text}</p></article>)}</section><a className="button button-dark" href="/inquiry">Start a website project <ArrowUpRight size={17} /></a></> }
