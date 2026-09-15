@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 const siteUrl = 'https://sitecrafters-five.vercel.app'
+const socialImage = `${siteUrl}/og-image.svg`
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -27,13 +28,14 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'SiteCrafters',
+    images: [{ url: socialImage, width: 1200, height: 630, alt: 'SiteCrafters — Website Design, Social Media and Video' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SiteCrafters — Website Design, Social Media & Video',
     description: 'Build your online presence with websites, social media, and video content.',
+    images: [socialImage],
   },
-  generator: 'v0.app',
 }
 
 export const viewport: Viewport = { colorScheme: 'dark', themeColor: '#09090b' }
@@ -52,7 +54,6 @@ const organizationSchema = {
     name: 'Atharva Gogawale',
   },
   sameAs: [
-    'https://instagram.com/sitecrafters07',
     'https://linkedin.com/in/atharva-gogawale-259173354',
   ],
 }
