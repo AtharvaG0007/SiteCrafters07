@@ -22,6 +22,53 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { colorScheme: 'dark', themeColor: '#09090b' }
 
+const founderVideoScript = `
+(function () {
+  function initFounderVideo() {
+    var video = document.querySelector('.founder-photo video');
+    if (!video) return;
+    var soundUnlocked = false;
+    var visible = false;
+
+    function playVideo() {
+      if (!visible) return;
+      if (soundUnlocked) {
+        video.muted = false;
+        video.volume = 1;
+      }
+      video.play().catch(function () {
+        video.muted = true;
+        video.play().catch(function () {});
+      });
+    }
+
+    function unlockSound() {
+      soundUnlocked = true;
+      if (visible) playVideo();
+      document.removeEventListener('pointerdown', unlockSound);
+      document.removeEventListener('keydown', unlockSound);
+      document.removeEventListener('touchstart', unlockSound);
+    }
+
+    document.addEventListener('pointerdown', unlockSound, { passive: true });
+    document.addEventListener('keydown', unlockSound);
+    document.addEventListener('touchstart', unlockSound, { passive: true });
+
+    var observer = new IntersectionObserver(function (entries) {
+      var entry = entries[0];
+      visible = entry.isIntersecting;
+      if (visible) playVideo();
+      else video.pause();
+    }, { threshold: 0.55 });
+
+    observer.observe(video);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFounderVideo);
+  else initFounderVideo();
+})();
+`
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  return <html lang="en"><body>{children}<script dangerouslySetInnerHTML={{ __html: founderVideoScript }} />{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
 }
