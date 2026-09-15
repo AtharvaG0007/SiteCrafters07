@@ -4,9 +4,9 @@ import { ArrowUpRight, Menu, MessageCircle, Play, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 const services = [
-  { number: '01', title: 'Website design & development', description: 'Modern, responsive websites designed around your business and your customers.', href: '/services/web-design' },
-  { number: '02', title: 'Social media management', description: 'Content planning, creative support, and consistency for a professional social presence.', href: '/services/social-media' },
-  { number: '03', title: 'Video editing', description: 'Polished reels, shorts, and promotional content ready to publish.', href: '/services/video-editing' },
+  { number: '01', title: 'Website design & development', description: 'Modern, responsive websites designed around your business, customers, and the action you want visitors to take.', href: '/services/web-design' },
+  { number: '02', title: 'Social media management', description: 'Content planning, creative support, and consistent publishing that keeps your brand active and recognisable.', href: '/services/social-media' },
+  { number: '03', title: 'Video editing', description: 'Polished reels, shorts, and promotional content built to communicate quickly and look professional.', href: '/services/video-editing' },
 ]
 const process = [
   { number: '01', title: 'Tell us what you need', description: 'We learn about your business, audience, goals, and the work that needs doing.' },
@@ -16,11 +16,108 @@ const process = [
 ]
 const faqs = [
   ['How much does a website cost?', 'Every project depends on its scope, pages, content, and functionality. We provide a clear proposal after understanding what you need.'],
-  ['How long does it take?', 'A focused website project usually depends on the number of pages and how quickly content and feedback are available. We will agree on a realistic schedule before starting.'],
-  ['Do you redesign existing websites?', 'Yes. We can improve the structure, content clarity, visual design, mobile experience, or development of an existing website.'],
-  ['Do you provide social media management?', 'Yes. We can help with practical content direction, planning, and consistent management for your social presence.'],
+  ['How long does it take?', 'A focused website project usually depends on the number of pages and how quickly content and feedback are available. We agree on a realistic schedule before starting.'],
+  ['Do you redesign existing websites?', 'Yes. We can improve structure, content clarity, visual design, mobile experience, performance, or development of an existing website.'],
+  ['Do you provide social media management?', 'Yes. We can help with practical content direction, planning, creative support, and consistent management for your social presence.'],
   ['Do you provide video editing?', 'Yes. We edit short-form and branded videos for social media, promotions, and other content needs.'],
 ]
+
+const premiumResponsiveStyles = `
+  .site-shell { min-width: 0; }
+  .container { width: min(1180px, calc(100% - 64px)); }
+  .nav { position: relative; z-index: 20; }
+  .nav-links a, .nav-cta, .button, .service-row a, .project, .footer a { -webkit-tap-highlight-color: transparent; }
+  .service-row h3, .service-row p, .project h3, .footer p, .footer-email { min-width: 0; overflow-wrap: anywhere; }
+  .service-row h3 { line-height: 1.12; }
+  .service-row p { line-height: 1.6; }
+  .project { display: block; min-width: 0; }
+  .project-visual { border-radius: 0; }
+  .project-static-preview { position: absolute; inset: 42px 18px 18px; padding: 34px; display: flex; flex-direction: column; justify-content: center; background: #fff; color: #111; box-shadow: 0 18px 50px rgba(0,0,0,.16); }
+  .preview-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: .14em; font-weight: 800; color: #ff4657; }
+  .project-static-preview strong { margin-top: 12px; font-size: clamp(28px, 4vw, 52px); line-height: .95; letter-spacing: -.06em; }
+  .preview-url { margin-top: auto; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #777; }
+  .faq-list { margin-top: 48px; border-top: 1px solid var(--line); }
+  .faq-row { border-bottom: 1px solid var(--line); }
+  .faq-row > button { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 25px 0; border: 0; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+  .faq-row > button h3 { margin: 0; font-size: clamp(17px, 2vw, 22px); letter-spacing: -.03em; line-height: 1.2; }
+  .faq-row > button span { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; font-size: 20px; font-weight: 300; }
+  .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; }
+  .faq-answer p { min-height: 0; overflow: hidden; margin: 0; max-width: 720px; color: var(--muted); line-height: 1.65; font-size: 14px; }
+  .faq-row-open .faq-answer { grid-template-rows: 1fr; }
+  .faq-row-open .faq-answer p { padding: 0 0 25px; }
+  .footer-nav { display: flex; flex-wrap: wrap; gap: 16px 22px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .footer-nav a:hover { color: var(--coral); }
+  .floating-whatsapp { z-index: 50; }
+  @media (max-width: 900px) {
+    .container { width: min(100% - 40px, 720px); }
+    .nav { min-height: 76px; }
+    .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; margin: 0; padding: 18px; flex-direction: column; gap: 0; background: rgba(9,9,11,.97); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 24px 70px rgba(0,0,0,.35); }
+    .nav-links-open { display: flex; }
+    .nav-links a { padding: 15px 8px; border-bottom: 1px solid var(--line); }
+    .nav-links a:last-child { border-bottom: 0; }
+    .nav-cta { display: none; }
+    .menu-button { display: grid; place-items: center; color: var(--ink); cursor: pointer; padding: 8px; }
+    .hero { grid-template-columns: 1fr; gap: 42px; min-height: auto; padding: 54px 0 70px; }
+    .hero h1 { font-size: clamp(58px, 16vw, 92px); }
+    .hero-art { height: min(72vw, 430px); }
+    .intro, .services, .founder { padding: 82px 0; }
+    .intro-content { grid-template-columns: 1fr; gap: 32px; padding-top: 42px; }
+    .intro-content > div { max-width: 620px; }
+    .service-list { margin-top: 34px; }
+    .service-row { grid-template-columns: 44px minmax(0, 1fr) 38px; gap: 14px; padding: 24px 0; }
+    .service-row h3 { font-size: clamp(18px, 4vw, 23px); }
+    .service-row p { grid-column: 2 / 3; grid-row: 2; margin-top: -4px; }
+    .service-row > a { grid-column: 3; grid-row: 1 / span 2; align-self: center; }
+    .work { padding: 34px 0 82px; }
+    .project-grid { grid-template-columns: 1fr; gap: 34px; margin-top: 34px; }
+    .project-visual { height: min(76vw, 400px); }
+    .results { padding: 72px 0 78px; }
+    .results-grid { grid-template-columns: 1fr; gap: 42px; margin-top: 46px; }
+    .founder { grid-template-columns: 1fr; gap: 48px; }
+    .founder-photo, .founder-photo video { min-height: min(105vw, 520px); }
+    .founder-copy h2 { margin-top: 32px; }
+    .contact { padding-bottom: 52px; }
+    .contact-inner { padding: 70px 22px 76px; }
+    .footer { min-height: auto; padding: 34px 0; flex-wrap: wrap; align-items: flex-start; }
+    .footer-brand { width: 100%; flex-wrap: wrap; }
+    .footer-nav { order: 3; width: 100%; }
+    .footer p { order: 4; width: 100%; }
+    .socials { margin-left: auto; }
+  }
+  @media (max-width: 560px) {
+    .container { width: min(100% - 28px, 520px); }
+    .hero { padding-top: 38px; }
+    .hero h1 { font-size: clamp(52px, 17vw, 78px); }
+    .hero-description { font-size: 14px; }
+    .hero-actions { align-items: stretch; flex-direction: column; gap: 18px; }
+    .hero-actions .button { width: 100%; }
+    .hero-actions .text-link { justify-content: center; }
+    .hero-art { height: 74vw; min-height: 260px; }
+    .section-label { gap: 12px; font-size: 9px; }
+    .intro, .services, .founder { padding: 68px 0; }
+    .intro h2, .contact h2 { font-size: clamp(42px, 13vw, 64px); }
+    .service-row { grid-template-columns: 32px minmax(0,1fr) 34px; gap: 10px; }
+    .service-number { font-size: 9px; }
+    .service-row h3 { font-size: 18px; }
+    .service-row p { font-size: 13px; }
+    .project-visual { height: 78vw; min-height: 270px; }
+    .project-static-preview { inset: 38px 12px 12px; padding: 22px; }
+    .project-sticker { width: 58px; height: 58px; left: 15px; top: 44px; font-size: 11px; }
+    .project-tag { left: 15px; bottom: 14px; font-size: 8px; }
+    .project-browser-bar { font-size: 7px; padding: 9px 10px; }
+    .faq-row > button { padding: 21px 0; }
+    .faq-row > button h3 { font-size: 17px; }
+    .founder-photo, .founder-photo video { min-height: 92vw; }
+    .contact-inner { padding: 62px 18px 68px; }
+    .footer-brand { gap: 14px; }
+    .footer-email { font-size: 10px; }
+    .footer-nav { gap: 13px 17px; font-size: 9px; }
+    .floating-whatsapp { right: 16px !important; bottom: 16px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+`
 
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -38,6 +135,7 @@ export default function Page() {
   }, [])
   return (
     <main className="site-shell">
+      <style>{premiumResponsiveStyles}</style>
       <nav className="nav container" aria-label="Main navigation">
         <a className="brand" href="#top" aria-label="SiteCrafters home"><img className="brand-logo" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-dhZVabMRvDh6Pi5SloFCu1tGOOfzc5.png" alt="SiteCrafters" /><span>sitecrafters<span className="brand-dot">.</span></span></a>
         <div className={menuOpen ? 'nav-links nav-links-open' : 'nav-links'}><a href="#work" onClick={() => setMenuOpen(false)}>Work</a><a href="/services" onClick={() => setMenuOpen(false)}>Services</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="/careers" onClick={() => setMenuOpen(false)}>Careers</a><a href="/inquiry" onClick={() => setMenuOpen(false)}>Contact</a></div>
