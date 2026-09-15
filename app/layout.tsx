@@ -6,21 +6,66 @@ const siteUrl = 'https://sitecrafters-five.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'SiteCrafters — Websites, Social Media & Video',
-  description: 'SiteCrafters is a digital creative agency for website design, website development, social media management, and video editing in India.',
-  keywords: ['Website Design', 'Website Development', 'Social Media Management', 'Video Editing', 'Web Design India', 'Digital Creative Agency'],
+  title: {
+    default: 'SiteCrafters — Website Design, Social Media & Video',
+    template: '%s | SiteCrafters',
+  },
+  description: 'SiteCrafters helps businesses in India build a stronger online presence through website design and development, social media management, and video editing.',
+  applicationName: 'SiteCrafters',
+  creator: 'SiteCrafters',
+  publisher: 'SiteCrafters',
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
   alternates: { canonical: '/' },
   icons: {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     shortcut: ['/icon.svg'],
     apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
-  openGraph: { title: 'SiteCrafters — Websites, Social Media & Video', description: 'Build your online presence with websites, social media, and video content.', type: 'website', url: siteUrl, siteName: 'SiteCrafters' },
-  twitter: { card: 'summary_large_image', title: 'SiteCrafters — Websites, Social Media & Video', description: 'Build your online presence with websites, social media, and video content.' },
+  openGraph: {
+    title: 'SiteCrafters — Website Design, Social Media & Video',
+    description: 'Build your online presence with websites, social media, and video content.',
+    type: 'website',
+    url: siteUrl,
+    siteName: 'SiteCrafters',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SiteCrafters — Website Design, Social Media & Video',
+    description: 'Build your online presence with websites, social media, and video content.',
+  },
   generator: 'v0.app',
 }
 
 export const viewport: Viewport = { colorScheme: 'dark', themeColor: '#09090b' }
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#organization`,
+  name: 'SiteCrafters',
+  url: siteUrl,
+  logo: `${siteUrl}/icon.svg`,
+  email: 'sitecrafters07@gmail.com',
+  description: 'Digital creative agency for website design and development, social media management, and video editing.',
+  founder: {
+    '@type': 'Person',
+    name: 'Atharva Gogawale',
+  },
+  sameAs: [
+    'https://instagram.com/sitecrafters07',
+    'https://linkedin.com/in/atharva-gogawale-259173354',
+  ],
+}
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: 'SiteCrafters',
+  url: siteUrl,
+  publisher: { '@id': `${siteUrl}/#organization` },
+  description: 'Website design, social media management, and video editing by SiteCrafters.',
+}
 
 const founderVideoScript = `
 (function () {
@@ -70,5 +115,15 @@ const founderVideoScript = `
 `
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}<script dangerouslySetInnerHTML={{ __html: founderVideoScript }} />{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  return (
+    <html lang="en">
+      <body>
+        {children}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+        <script dangerouslySetInnerHTML={{ __html: founderVideoScript }} />
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+      </body>
+    </html>
+  )
 }
