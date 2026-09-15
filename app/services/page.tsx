@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import { ArrowUpRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Services — Website Design, Social Media & Video',
+  description: 'Explore SiteCrafters services: website design and development, social media management, and professional video editing for businesses and brands.',
+  alternates: { canonical: '/services' },
+}
 
 const services = [
   { href: '/services/web-design', number: '01', title: 'Website Design & Development', text: 'Modern, responsive websites designed around your business and your customers.' },
