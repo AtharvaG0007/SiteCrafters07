@@ -1,0 +1,6 @@
+import Link from 'next/link'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+
+export default function WorkPage() {
+  return <main className="inner-page container"><Link className="back-link" href="/"><ArrowLeft size={15} /> Back to SiteCrafters</Link><header className="inner-hero"><p className="eyebrow">Work · Selected project</p><h1>Built to be<br /><em>useful.</em></h1><p>A small selection of work from SiteCrafters. We prefer showing real work and honest descriptions over invented numbers.</p></header><section className="detail-content"><article><h2>BCA Vault · Student resource portal</h2><p>A student-focused resource portal designed to make study material easier to discover and organise. SiteCrafters handled the website design and development.</p><a className="text-link arrow-link" href="https://bca-vault.portalbcavault.workers.dev" target="_blank" rel="noreferrer">View live project <ArrowUpRight size={17} /></a></article><article><h2>Want to see your project here?</h2><p>We build websites, manage social media, and edit video content for businesses and personal brands.</p><Link className="button button-dark" href="/inquiry">Start a project <ArrowUpRight size={17} /></Link></article></section></main>
+}
