@@ -1,2 +1,10 @@
+import type { Metadata } from 'next'
 import { ArrowUpRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Social Media Management',
+  description: 'Social media management, content planning, creative support, reels planning, scheduling, and brand consistency for businesses.',
+  alternates: { canonical: '/services/social-media' },
+}
+
 export default function SocialMediaPage() { return <main className="inner-page container"><a className="back-link" href="/services">← All services</a><header className="inner-hero"><p className="eyebrow">02 · Social Media Management</p><h1>Stay visible.<br /><em>Stay consistent.</em></h1><p>For businesses that want a social presence that feels active, considered, and recognisably theirs.</p></header><section className="detail-grid"><article><span>01</span><p>Content planning, post creatives, captions, reels planning, scheduling, and brand consistency.</p></article><article><span>02</span><p>We work from your business, audience, and available content. We do not promise viral growth or guaranteed sales.</p></article><article><span>03</span><p>You receive a practical content direction that makes it easier to show up with confidence.</p></article></section><a className="button button-dark" href="/inquiry">Plan social content <ArrowUpRight size={17} /></a></main> }
